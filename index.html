@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta
+      name="description"
+      content="친구들과 이번주 회고와 다음주 플랜을 함께 남기는 위클리 회고 게시판"
+    >
+    <title>회고모임</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="./design-system.css">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="ds-shell site-header">
+      <nav class="topbar" aria-label="주요 메뉴">
+        <a class="brand" href="#top" aria-label="회고모임 홈">
+          <span>회고모임</span>
+        </a>
+        <div class="topbar-actions">
+          <a class="nav-link" href="#board">Board</a>
+          <a class="nav-link" href="#compose">Write</a>
+          <a class="nav-link" href="#settings">Storage</a>
+        </div>
+      </nav>
+
+      <section id="top" class="hero">
+        <div class="hero-copy">
+          <p class="ds-kicker">Weekly Retrospective Board</p>
+          <h1>친구들과 매주 회고하고 다음 액션을 정리하세요.</h1>
+          <p>
+            이번주 회고와 다음주 플랜을 같은 흐름에서 작성하고, 친구들의 글을 빠르게 훑어볼 수 있는 공용 게시판입니다.
+          </p>
+          <div class="hero-actions" aria-label="빠른 작성">
+            <a class="ds-link-accent" href="#compose">글 작성하기</a>
+            <a class="ds-link-muted" href="#board">게시판 보기</a>
+          </div>
+        </div>
+        <aside class="week-panel ds-panel" aria-label="이번 주 요약">
+          <span class="ds-kicker">이번 모임</span>
+          <strong id="weekRange">-</strong>
+          <div class="metric-grid" aria-label="게시글 통계">
+            <span>
+              <b id="postCount">0</b>
+              글
+            </span>
+            <span>
+              <b id="writerCount">0</b>
+              친구
+            </span>
+          </div>
+        </aside>
+      </section>
+    </header>
+
+    <main class="ds-shell">
+      <section class="toolbar" aria-label="게시판 제목">
+        <div>
+          <p class="ds-kicker">Board</p>
+          <h2>공유 게시판</h2>
+        </div>
+        <a class="ds-link-muted" href="#compose">새 회고 쓰기</a>
+      </section>
+
+      <section id="board" class="board" aria-live="polite"></section>
+      <p id="emptyState" class="empty-state" hidden>아직 글이 없습니다. 첫 회고를 남겨보세요.</p>
+
+      <section id="compose" class="compose-layout">
+        <form id="postForm" class="compose-form ds-panel">
+          <div class="section-heading">
+            <p class="ds-kicker">Compose</p>
+            <h2>새 글 작성</h2>
+          </div>
+
+          <div class="form-grid">
+            <label>
+              이름
+              <input id="author" name="author" type="text" placeholder="예: 윤철" autocomplete="name" required>
+            </label>
+            <label>
+              주차
+              <input id="weekOf" name="weekOf" type="date" required>
+            </label>
+          </div>
+
+          <label>
+            제목
+            <input id="title" name="title" type="text" placeholder="한 줄로 요약하기" maxlength="80" required>
+          </label>
+
+          <section class="schema-fields">
+            <div class="schema-heading">
+              <p class="ds-kicker">This Week</p>
+              <h3>이번주 회고</h3>
+            </div>
+            <label>
+              좋았던 점
+              <textarea name="wins" rows="3" placeholder="이번주에 잘 굴러간 일, 고마웠던 일"></textarea>
+            </label>
+            <label>
+              어려웠던 점
+              <textarea name="challenges" rows="3" placeholder="막혔던 부분, 에너지를 쓴 부분"></textarea>
+            </label>
+            <label>
+              배운 점
+              <textarea name="learnings" rows="3" placeholder="다음 주에 가져갈 인사이트"></textarea>
+            </label>
+          </section>
+
+          <section class="schema-fields">
+            <div class="schema-heading">
+              <p class="ds-kicker">Next Week</p>
+              <h3>다음주 플랜</h3>
+            </div>
+            <label>
+              목표
+              <textarea name="goals" rows="3" placeholder="다음주에 달성하고 싶은 결과"></textarea>
+            </label>
+            <label>
+              실행 계획
+              <textarea name="actions" rows="3" placeholder="언제, 무엇을, 어떻게 할지"></textarea>
+            </label>
+            <label>
+              필요한 도움
+              <textarea name="support" rows="3" placeholder="친구들에게 받고 싶은 피드백이나 도움"></textarea>
+            </label>
+          </section>
+
+          <label>
+            한 줄 다짐
+            <input id="commitment" name="commitment" type="text" placeholder="이번 주의 문장" maxlength="120">
+          </label>
+
+          <div class="form-actions">
+            <button class="ds-button" type="submit">게시하기</button>
+            <button id="resetForm" class="ds-button ds-button-secondary" type="button">초기화</button>
+          </div>
+        </form>
+
+        <aside id="settings" class="settings-panel ds-panel">
+          <div class="section-heading">
+            <p class="ds-kicker">Storage</p>
+            <h2>GitHub JSON 아카이브</h2>
+          </div>
+          <p>
+            게시글은 이 레포의 JSON 파일에서 읽고, GitHub 토큰을 설정하면 글을 올릴 때 같은 파일에 커밋합니다. 토큰은 이 브라우저에만 저장됩니다.
+          </p>
+          <label>
+            Owner
+            <input id="githubOwner" type="text" placeholder="예: yyoonchul">
+          </label>
+          <label>
+            Repo
+            <input id="githubRepo" type="text" placeholder="예: hoego">
+          </label>
+          <div class="form-grid">
+            <label>
+              Branch
+              <input id="githubBranch" type="text" placeholder="main">
+            </label>
+            <label>
+              JSON path
+              <input id="githubPath" type="text" placeholder="data/posts.json">
+            </label>
+          </div>
+          <label>
+            GitHub fine-grained token
+            <input id="githubToken" type="password" placeholder="Contents: Read and write">
+          </label>
+          <div class="form-actions">
+            <button id="saveSettings" class="ds-button" type="button">설정 저장</button>
+            <button id="clearSettings" class="ds-button ds-button-secondary" type="button">연결 해제</button>
+          </div>
+          <hr>
+          <button id="exportPosts" class="ds-button ds-button-secondary" type="button">JSON 내보내기</button>
+          <label class="import-label">
+            JSON 가져오기
+            <input id="importPosts" type="file" accept="application/json">
+          </label>
+          <p id="storageStatus" class="status-text" role="status"></p>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="ds-shell site-footer">
+      <span>회고모임</span>
+      <span>이번주 회고 · 다음주 플랜</span>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

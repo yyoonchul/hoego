@@ -1,0 +1,189 @@
+:root {
+  --ds-color-bg: #f4f4f0;
+  --ds-color-text: #191919;
+  --ds-color-sub: #8c8c8c;
+  --ds-color-accent: #ea580c;
+  --ds-color-line: rgba(140, 140, 140, 0.24);
+  --ds-color-line-strong: rgba(25, 25, 25, 0.18);
+  --ds-font-serif: "Newsreader", Georgia, serif;
+  --ds-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ds-font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ds-shell: 42rem;
+  --ds-space-1: 0.25rem;
+  --ds-space-2: 0.5rem;
+  --ds-space-3: 0.75rem;
+  --ds-space-4: 1rem;
+  --ds-space-6: 1.5rem;
+  --ds-space-8: 2rem;
+  --ds-space-12: 3rem;
+  --ds-radius: 0;
+  --ds-focus: 0 0 0 3px rgba(234, 88, 12, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+  background: var(--ds-color-bg);
+  color: var(--ds-color-text);
+  font-family: var(--ds-font-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--ds-color-bg);
+  color: var(--ds-color-text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+a:hover {
+  color: var(--ds-color-accent);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus);
+}
+
+label,
+legend,
+.ds-kicker {
+  font-family: var(--ds-font-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+label,
+legend {
+  color: var(--ds-color-sub);
+}
+
+input,
+textarea {
+  width: 100%;
+  margin-top: var(--ds-space-2);
+  border: 0;
+  border-bottom: 1px solid var(--ds-color-line-strong);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ds-color-text);
+  font-family: var(--ds-font-serif);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+input {
+  height: 2.5rem;
+}
+
+textarea {
+  min-height: 7rem;
+  padding-top: var(--ds-space-2);
+  resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: color-mix(in srgb, var(--ds-color-sub) 72%, transparent);
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+hr {
+  height: 1px;
+  margin: var(--ds-space-6) 0;
+  border: 0;
+  background: var(--ds-color-line);
+}
+
+.ds-shell {
+  width: min(var(--ds-shell), calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+.ds-kicker {
+  margin: 0 0 var(--ds-space-2);
+  color: var(--ds-color-sub);
+  letter-spacing: 0;
+}
+
+.ds-link-accent,
+.ds-link-muted {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  border-bottom: 1px solid currentColor;
+  font-family: var(--ds-font-mono);
+  font-size: 0.8rem;
+}
+
+.ds-link-accent {
+  color: var(--ds-color-accent);
+}
+
+.ds-link-muted {
+  color: var(--ds-color-sub);
+}
+
+.ds-button {
+  min-height: 2.5rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--ds-color-accent);
+  border-radius: 0;
+  background: var(--ds-color-accent);
+  color: #fff;
+  font-family: var(--ds-font-mono);
+  font-size: 0.78rem;
+  line-height: 1.2;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.ds-button:hover {
+  border-color: var(--ds-color-text);
+  background: var(--ds-color-text);
+}
+
+.ds-button-secondary {
+  background: transparent;
+  color: var(--ds-color-sub);
+  border-color: var(--ds-color-line-strong);
+}
+
+.ds-button-secondary:hover {
+  background: transparent;
+  color: var(--ds-color-accent);
+  border-color: var(--ds-color-accent);
+}
+
+.ds-panel {
+  border-top: 1px solid var(--ds-color-line);
+  border-bottom: 1px solid var(--ds-color-line);
+}
