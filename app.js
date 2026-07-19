@@ -44,6 +44,12 @@ function bindEvents() {
   document.querySelector("#clearSettings").addEventListener("click", clearSettings);
   document.querySelector("#exportPosts").addEventListener("click", exportPosts);
   document.querySelector("#importPosts").addEventListener("change", importPosts);
+  document.querySelectorAll("[data-tab]").forEach((button) => {
+    button.addEventListener("click", () => showTab(button.dataset.tab));
+  });
+  document.querySelectorAll("[data-tab-target]").forEach((button) => {
+    button.addEventListener("click", () => showTab(button.dataset.tabTarget));
+  });
 }
 
 async function loadPosts() {
@@ -219,7 +225,7 @@ function editPost(id) {
   form.commitment.value = post.commitment || "";
   form.querySelector("button[type='submit']").textContent = "수정 저장";
   document.querySelector("#resetForm").textContent = "편집 취소";
-  document.querySelector("#compose").scrollIntoView({ behavior: "smooth", block: "start" });
+  showTab("write");
   storageStatus.textContent = "편집 중입니다. 저장하면 기존 글이 업데이트됩니다.";
 }
 
@@ -229,6 +235,20 @@ function resetComposer() {
   document.querySelector("#weekOf").valueAsDate = new Date();
   form.querySelector("button[type='submit']").textContent = "게시하기";
   document.querySelector("#resetForm").textContent = "초기화";
+}
+
+function showTab(tabName) {
+  document.querySelectorAll("[data-tab]").forEach((button) => {
+    const isActive = button.dataset.tab === tabName;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+  });
+
+  document.querySelectorAll("[data-panel]").forEach((panel) => {
+    const isActive = panel.dataset.panel === tabName;
+    panel.classList.toggle("active", isActive);
+    panel.hidden = !isActive;
+  });
 }
 
 async function deletePost(id) {

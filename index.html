@@ -21,29 +21,20 @@
   <body>
     <header class="ds-shell site-header">
       <nav class="topbar" aria-label="주요 메뉴">
-        <a class="brand" href="#top" aria-label="회고모임 홈">
+        <a class="brand" href="/" aria-label="회고모임 홈">
           <span>회고모임</span>
         </a>
-        <div class="topbar-actions">
-          <a class="nav-link" href="#board">Board</a>
-          <a class="nav-link" href="#compose">Write</a>
-          <a class="nav-link" href="#settings">Storage</a>
+        <div class="topbar-actions" role="tablist" aria-label="화면 전환">
+          <button id="boardTab" class="nav-tab active" type="button" role="tab" aria-selected="true" aria-controls="boardPanel" data-tab="board">Board</button>
+          <button id="writeTab" class="nav-tab" type="button" role="tab" aria-selected="false" aria-controls="writePanel" data-tab="write">Write</button>
+          <button id="storageTab" class="nav-tab" type="button" role="tab" aria-selected="false" aria-controls="storagePanel" data-tab="storage">Storage</button>
         </div>
       </nav>
+    </header>
 
-      <section id="top" class="hero">
-        <div class="hero-copy">
-          <p class="ds-kicker">Weekly Retrospective Board</p>
-          <h1>친구들과 매주 회고하고 다음 액션을 정리하세요.</h1>
-          <p>
-            이번주 회고와 다음주 플랜을 같은 흐름에서 작성하고, 친구들의 글을 빠르게 훑어볼 수 있는 공용 게시판입니다.
-          </p>
-          <div class="hero-actions" aria-label="빠른 작성">
-            <a class="ds-link-accent" href="#compose">글 작성하기</a>
-            <a class="ds-link-muted" href="#board">게시판 보기</a>
-          </div>
-        </div>
-        <aside class="week-panel ds-panel" aria-label="이번 주 요약">
+    <main class="ds-shell">
+      <section id="boardPanel" class="tab-panel active" role="tabpanel" aria-labelledby="boardTab" data-panel="board">
+        <section class="week-panel ds-panel" aria-label="이번 주 요약">
           <span class="ds-kicker">이번 모임</span>
           <strong id="weekRange">-</strong>
           <div class="metric-grid" aria-label="게시글 통계">
@@ -56,23 +47,21 @@
               친구
             </span>
           </div>
-        </aside>
+        </section>
+
+        <section class="toolbar" aria-label="게시판 제목">
+          <div>
+            <p class="ds-kicker">Board</p>
+            <h2>공유 게시판</h2>
+          </div>
+          <button class="tab-link" type="button" data-tab-target="write">새 회고 쓰기</button>
+        </section>
+
+        <section id="board" class="board" aria-live="polite"></section>
+        <p id="emptyState" class="empty-state" hidden>아직 글이 없습니다. 첫 회고를 남겨보세요.</p>
       </section>
-    </header>
 
-    <main class="ds-shell">
-      <section class="toolbar" aria-label="게시판 제목">
-        <div>
-          <p class="ds-kicker">Board</p>
-          <h2>공유 게시판</h2>
-        </div>
-        <a class="ds-link-muted" href="#compose">새 회고 쓰기</a>
-      </section>
-
-      <section id="board" class="board" aria-live="polite"></section>
-      <p id="emptyState" class="empty-state" hidden>아직 글이 없습니다. 첫 회고를 남겨보세요.</p>
-
-      <section id="compose" class="compose-layout">
+      <section id="writePanel" class="tab-panel" role="tabpanel" aria-labelledby="writeTab" data-panel="write" hidden>
         <form id="postForm" class="compose-form ds-panel">
           <div class="section-heading">
             <p class="ds-kicker">Compose</p>
@@ -143,7 +132,9 @@
             <button id="resetForm" class="ds-button ds-button-secondary" type="button">초기화</button>
           </div>
         </form>
+      </section>
 
+      <section id="storagePanel" class="tab-panel" role="tabpanel" aria-labelledby="storageTab" data-panel="storage" hidden>
         <aside id="settings" class="settings-panel ds-panel">
           <div class="section-heading">
             <p class="ds-kicker">Storage</p>
