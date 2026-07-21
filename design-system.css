@@ -1,23 +1,59 @@
 :root {
-  --ds-color-bg: #f4f4f0;
-  --ds-color-text: #191919;
-  --ds-color-sub: #8c8c8c;
-  --ds-color-accent: #ea580c;
-  --ds-color-line: rgba(140, 140, 140, 0.24);
-  --ds-color-line-strong: rgba(25, 25, 25, 0.18);
-  --ds-font-serif: "Newsreader", Georgia, serif;
-  --ds-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --ds-font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --ds-shell: 42rem;
+  --ds-color-primary: #f54e00;
+  --ds-color-primary-active: #d04200;
+  --ds-color-ink: #26251e;
+  --ds-color-body: #5a5852;
+  --ds-color-body-strong: #26251e;
+  --ds-color-muted: #807d72;
+  --ds-color-muted-soft: #a09c92;
+  --ds-color-hairline: #e6e5e0;
+  --ds-color-hairline-soft: #efeee8;
+  --ds-color-hairline-strong: #cfcdc4;
+  --ds-color-canvas: #f7f7f4;
+  --ds-color-canvas-soft: #fafaf7;
+  --ds-color-surface: #ffffff;
+  --ds-color-surface-strong: #e6e5e0;
+  --ds-color-on-primary: #ffffff;
+  --ds-color-success: #1f8a65;
+  --ds-color-error: #cf2d56;
+  --ds-color-bg: var(--ds-color-canvas);
+  --ds-color-text: var(--ds-color-ink);
+  --ds-color-sub: var(--ds-color-muted);
+  --ds-color-accent: var(--ds-color-primary);
+  --ds-color-line: var(--ds-color-hairline);
+  --ds-color-line-strong: var(--ds-color-hairline-strong);
+  --ds-font-display: "Newsreader", "Noto Sans KR", Georgia, "Times New Roman", serif;
+  --ds-font-sans: "Noto Sans KR", "Newsreader", Georgia, "Times New Roman", serif;
+  --ds-font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ds-color-state-done-bg: #e7f0df;
+  --ds-color-state-done-text: #416b32;
+  --ds-color-state-draft-bg: #fbebd2;
+  --ds-color-state-draft-text: #8a551a;
+  --ds-color-state-note-bg: #fff3ec;
+  --ds-color-state-note-border: #f6c4aa;
+  --ds-color-state-note-text: #a23b08;
+  --ds-color-blue-soft: #e6edf7;
+  --ds-color-blue-text: #365f90;
+  --ds-color-lavender-soft: #ece6fb;
+  --ds-color-lavender-text: #625190;
+  --ds-shell: 72rem;
   --ds-space-1: 0.25rem;
   --ds-space-2: 0.5rem;
   --ds-space-3: 0.75rem;
   --ds-space-4: 1rem;
+  --ds-space-5: 1.25rem;
   --ds-space-6: 1.5rem;
   --ds-space-8: 2rem;
+  --ds-space-10: 2.5rem;
   --ds-space-12: 3rem;
-  --ds-radius: 0;
-  --ds-focus: 0 0 0 3px rgba(234, 88, 12, 0.2);
+  --ds-space-16: 4rem;
+  --ds-space-20: 5rem;
+  --ds-radius-xs: 4px;
+  --ds-radius-sm: 6px;
+  --ds-radius-md: 8px;
+  --ds-radius-lg: 12px;
+  --ds-radius-pill: 9999px;
+  --ds-focus: 0 0 0 3px rgba(245, 78, 0, 0.18);
 }
 
 * {
@@ -28,8 +64,8 @@ html {
   min-width: 320px;
   scroll-behavior: smooth;
   background: var(--ds-color-bg);
-  color: var(--ds-color-text);
-  font-family: var(--ds-font-serif);
+  color: var(--ds-color-body);
+  font-family: var(--ds-font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -38,7 +74,7 @@ body {
   min-height: 100vh;
   margin: 0;
   background: var(--ds-color-bg);
-  color: var(--ds-color-text);
+  color: var(--ds-color-body);
 }
 
 a {
@@ -73,12 +109,27 @@ label,
 legend,
 .ds-kicker {
   font-family: var(--ds-font-mono);
-  font-size: 0.75rem;
-  line-height: 1.5;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 label,
 legend {
+  display: block;
   color: var(--ds-color-sub);
 }
 
@@ -86,23 +137,24 @@ input,
 textarea {
   width: 100%;
   margin-top: var(--ds-space-2);
-  border: 0;
-  border-bottom: 1px solid var(--ds-color-line-strong);
-  border-radius: 0;
-  background: transparent;
+  border: 1px solid var(--ds-color-line);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-color-surface);
   color: var(--ds-color-text);
-  font-family: var(--ds-font-serif);
+  font-family: var(--ds-font-sans);
   font-size: 1rem;
   line-height: 1.5;
+  transition: border-color 160ms ease, background 160ms ease;
 }
 
 input {
-  height: 2.5rem;
+  height: 2.75rem;
+  padding: 0 var(--ds-space-4);
 }
 
 textarea {
   min-height: 7rem;
-  padding-top: var(--ds-space-2);
+  padding: var(--ds-space-3) var(--ds-space-4);
   resize: vertical;
 }
 
@@ -132,7 +184,7 @@ hr {
 .ds-kicker {
   margin: 0 0 var(--ds-space-2);
   color: var(--ds-color-sub);
-  letter-spacing: 0;
+  letter-spacing: 0.08em;
 }
 
 .ds-link-accent,
@@ -155,35 +207,37 @@ hr {
 
 .ds-button {
   min-height: 2.5rem;
-  padding: 0.45rem 0.7rem;
+  padding: 0.625rem 1.125rem;
   border: 1px solid var(--ds-color-accent);
-  border-radius: 0;
+  border-radius: var(--ds-radius-md);
   background: var(--ds-color-accent);
-  color: #fff;
-  font-family: var(--ds-font-mono);
-  font-size: 0.78rem;
-  line-height: 1.2;
+  color: var(--ds-color-on-primary);
+  font-family: var(--ds-font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
   transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
 .ds-button:hover {
-  border-color: var(--ds-color-text);
-  background: var(--ds-color-text);
+  border-color: var(--ds-color-primary-active);
+  background: var(--ds-color-primary-active);
 }
 
 .ds-button-secondary {
-  background: transparent;
-  color: var(--ds-color-sub);
+  background: var(--ds-color-surface);
+  color: var(--ds-color-ink);
   border-color: var(--ds-color-line-strong);
 }
 
 .ds-button-secondary:hover {
-  background: transparent;
-  color: var(--ds-color-accent);
+  background: var(--ds-color-surface);
+  color: var(--ds-color-ink);
   border-color: var(--ds-color-accent);
 }
 
 .ds-panel {
-  border-top: 1px solid var(--ds-color-line);
-  border-bottom: 1px solid var(--ds-color-line);
+  border: 1px solid var(--ds-color-line);
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-color-surface);
 }
